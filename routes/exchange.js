@@ -14,7 +14,7 @@ var connection = mysql.createConnection({
   connection.connect();
 
   router.use(express.static('public')); 
-  
+
 router.get('/viewExchange',function(req,res){
     res.render('exchange')
 });
