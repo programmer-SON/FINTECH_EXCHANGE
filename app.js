@@ -46,7 +46,6 @@ app.use(session({  // 2
 
 ////////////////// ROUTER ///////////////////////////////
 
-
 app.use('/user',userRouter);
 app.use('/API',APIRouter);
 app.use('/qr',qrRouter);
