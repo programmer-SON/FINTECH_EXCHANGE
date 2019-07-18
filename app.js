@@ -69,6 +69,9 @@ app.get('/nowRate', function(req, res){
     })
 });
 
+app.get('/alarm',function(req,res){
+    res.render('alarm');
+})
 
 app.listen(port);
 
