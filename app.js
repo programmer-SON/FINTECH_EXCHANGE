@@ -63,10 +63,12 @@ app.get('/',function(req,res){
 
 var scheduler = schedule.scheduleJob('*/5 * * * * *', function(){
     rate.RateTable(function(data){
-        var sp = Object.keys(data).split(' ');
-        var code = sp[1];
+        var sp = Object.keys(data);
+        
         var currency = Object.values(data);
-        var user_id = request.session.user.id;
+        //var user_id = request.session.user.id;
+        //console.log(sp);
+        
         var sql = "SELECT * FROM fintech.e_rate " +
                   "WHERE E_rate = ? AND E_code = ? AND E_check = 0";
             // connection.query(sql, [,myid, code, targetRate, total, endDate, 0], function(error, result){
