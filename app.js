@@ -195,11 +195,12 @@ app.post('/savebox',function(req,res){
         for(var i = 0;i<results.length;i++)
         {
             ok = results[i].E_check;
-            goalday = results[i].E_date;
+            goalday = results[i].E_date; //목표날짜
             //console.log(ok);
 
-            console.log(today);
-            if(results[i].E_date >= today){
+            //console.log(goalday)
+            //console.log(today);
+            if(results[i].E_date == today){
                 if(ok == '0')
                 {
                     //res.render('alarm',{result:'false'})
