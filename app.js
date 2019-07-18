@@ -170,6 +170,53 @@ app.get('/alarm',function(req,res){
     res.render('alarm');
 })
 
+app.post('/savebox',function(req,res){
+    var sql = "SELECT * FROM fintech.e_rate;";
+    var ok = ''
+    var goalday = ''
+                
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+
+    if(dd<10) {
+        dd='0'+dd
+    } 
+
+    if(mm<10) {
+        mm='0'+mm
+    } 
+    dd = dd+7;
+    today = yyyy+'-'+mm+'-'+dd;
+    connection.query(sql, function (error, results, fields) {
+        if (error) throw error;
+        
+        for(var i = 0;i<results.length;i++)
+        {
+            ok = results[i].E_check;
+            goalday = results[i].E_date;
+            //console.log(ok);
+
+            console.log(today);
+            if(results[i].E_date == today){
+                if(ok == '0')
+                {
+                    //res.render('alarm',{result:'false'})
+                    res.json({result:'false'});
+                }
+                else
+                {
+                    res.json({result:'true'});
+                }
+            }
+        }
+        
+    })
+});
+app.get('/alarm',function(req,res){
+    res.render('alarm');
+})
 app.listen(port);
 
 console.log("Listening on port ", port);
