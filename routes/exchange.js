@@ -20,14 +20,17 @@ router.get('/viewExchange',function(req,res){
 });
 
 router.post('/exchange', function(req, res){
+    var email = req.session.user.email;
+    var myid = req.session.user.id;
     var code = req.body.code;
     var total = req.body.total;
     var endDate = req.body.endDate;
     var targetRate = req.body.targetRate;
 //    var sql = "INSERT INTO e_rate (id, code, e_rate, e_money, e_date, check) VALUES (?,?,?,?,?,?)"
-    var sql = "INSERT INTO exchange.e_rate (id, code, E_rate, E_money, E_date, E_check) VALUES (?,?,?,?,?,?)"
+    var sql = "INSERT INTO fintech.e_rate (E_id, id, code, E_rate, E_money, E_date, E_check) VALUES (?,?,?,?,?,?,?)";
 
-    connection.query(sql, [112233, code, targetRate, total, endDate, 0], function(error, result){
+    //connection.query(sql, [112233, code, targetRate, total, endDate, 0], function(error, result){
+        connection.query(sql, [11234,myid, code, targetRate, total, endDate, 0], function(error, result){
         if(error)
         {
             console.error(error);

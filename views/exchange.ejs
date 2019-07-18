@@ -395,7 +395,7 @@ function applyFunction(){
     console.log(code + ", " + total + ", " + endDate + ", " + targetRate);
 
     $.ajax({
-        url : 'http://localhost:3000/exchange',
+        url : 'http://localhost:3000/exchange/exchange',
         type : 'POST',
         data : {
             code : code,
