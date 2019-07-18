@@ -1,7 +1,6 @@
 var express = require("express");
 var mysql = require('mysql');
 var router = express.Router();
-var app = express();
 
 //var client = require('cheerio-httpcli');
 
@@ -20,8 +19,18 @@ router.get('/signup', function(req, res){
 });
 
 router.get('/mypage', function(req, res){
+    var sql = " SELECT * FROM fintech.e_rate ";
     
-    res.render('mypage');
+    connection.query(sql, function (error, results, fields) {
+        if(error){
+        console.error(error);
+        }
+        else {
+            console.log(results);
+            res.render('mypage' , {datas : results});
+        }
+    });
+    
 })
 
 router.get('/wallet', function(req, res){
@@ -36,7 +45,7 @@ router.get('/viewLogin', function(req, res){
     res.render('login');
 })
 
-router.post('/logout', (req, res) => {      // 3
+router.get('/logout', (req, res) => {      // 3
     req.session.destroy();
     res.redirect('/');
   });

@@ -83,6 +83,21 @@
                 <div class="clear"></div>
                 <p class="footer-copyright">
                     <table>
+                        <%for(var i=0; i<datas.length;i++){ %>
+                            <tr> 
+                               <td> <%= datas[i].E_date %> </td>
+                               <td> <%= datas[i].code%></td>
+                               <td> <%= datas[i].E_money %></td>
+                               <td>
+                               <% if(datas[i].E_check == 0) {%> 
+                                    환전 완료
+                                <% }else {%> 
+                                    환전 신청    
+                                <% } %>
+                               </td> 
+                            </tr>                            
+                            
+                         <%}%>   
                         <tr>
                             <td>
                                 2019-07-15 

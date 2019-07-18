@@ -61,7 +61,7 @@ app.get('/',function(req,res){
     res.render('main', {session : req.session.user});        
 })
 
-var scheduler = schedule.scheduleJob('*/5 * * * * *', function(){
+var scheduler = schedule.scheduleJob('*/5 * * * *', function(){
     rate.RateTable(function(data){
         var sp = Object.keys(data);
         var cur = Object.values(data);
