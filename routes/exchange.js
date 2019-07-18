@@ -20,22 +20,23 @@ router.get('/viewExchange',function(req,res){
 });
 
 router.post('/exchange', function(req, res){
-    var type = req.body.type;
-    var rate = req.body.rate;
-    var krw = req.body.krw;
-    var startDate = req.body.startDate;
+    var code = req.body.code;
+    var total = req.body.total;
     var endDate = req.body.endDate;
-    var targetMoney = req.body.targetMoney;
-    var sql = "INSERT INTO fintech.tb_exchange VALUES(?,?,?,?,?,?);"
+    var targetRate = req.body.targetRate;
+//    var sql = "INSERT INTO e_rate (id, code, e_rate, e_money, e_date, check) VALUES (?,?,?,?,?,?)"
+    var sql = "INSERT INTO exchange.e_rate (id, code, E_rate, E_money, E_date, E_check) VALUES (?,?,?,?,?,?)"
 
-    connection.query(sql, [type, rate, krw, startDate, endDate, targetMoney], function(error, result){
+    connection.query(sql, [112233, code, targetRate, total, endDate, 0], function(error, result){
         if(error)
         {
             console.error(error);
+            throw error;
         }
         else
         {
-            //res.join(1);
+            console.log("data input is done")
+            res.json(1);
         }
     })
 });
