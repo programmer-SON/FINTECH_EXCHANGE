@@ -14,10 +14,17 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
-    $('#exchange').click(function(){
+    function Success()
+    {
         console.log('exchange');
-        alert( "Handler for .click() called." );
-    });
+        alert( "환전이 완료되었습니다!" );
+    }
+    function Refund()
+    {
+        alert( "환불이 완료되었습니다!" );
+        document.getElementById("safe").deleteRow(1);
+    }
+
 </script>
 </head>
     
@@ -46,7 +53,7 @@
         <div class="content-boxed">
             <div class="content" style="text-align: center">
                 <h3>금고 현황</h2>
-                <table>
+                <table id='safe'>
                     <tr>
                         <td>
                             <p><h3>2019-07-17</h3></p>
@@ -56,10 +63,11 @@
                         </td>
                         <td>
                             <a href="#" class="button button-s button-round-large button-center-medium shadow-huge" style="margin : auto; width : 100px; height: 30px; background: #428bca"
-                            id="exchange">환전하기</a>
+                            id="exchange" onclick="Success()">환전하기</a>
                         </td>
                         <td>
-                            <a href="#" class="button button-s button-round-large button-center-medium shadow-huge" style="margin : auto; width : 100px; height: 30px; background: #428bca">환불하기</a>
+                            <a href="#" class="button button-s button-round-large button-center-medium shadow-huge" style="margin : auto; width : 100px; height: 30px; background: #428bca"
+                            onclick="Refund()">환불하기</a>
                         </td>
                     </tr>
                     <tr>
@@ -70,10 +78,12 @@
                             <p><h3>$500</h3></p>
                         </td>
                         <td>
-                            <a href="#" class="button button-s button-round-large button-center-medium shadow-huge" style="margin : auto; width : 100px; height: 30px; background: #428bca">환전하기</a>
+                            <a href="#" class="button button-s button-round-large button-center-medium shadow-huge" style="margin : auto; width : 100px; height: 30px; background: #428bca"
+                            onclick="Success()">환전하기</a>
                         </td>
                         <td>
-                            <a href="#" class="button button-s button-round-large button-center-medium shadow-huge" style="margin : auto; width : 100px; height: 30px; background: #428bca">환불하기</a>
+                            <a href="#" class="button button-s button-round-large button-center-medium shadow-huge" style="margin : auto; width : 100px; height: 30px; background: #428bca"
+                            onclick="Refund()">환불하기</a>
                         </td>
                     </tr>
                 </table>                        
