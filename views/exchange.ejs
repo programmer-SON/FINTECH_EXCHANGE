@@ -144,14 +144,14 @@ crossorigin="anonymous"></script>
                         <!-- <i class="input-icon fa fa-globe"></i> -->
                         <img class="caption-image owl-lazy" data-src="images/pictures/korea_flag.png"/>
                         <span>KRW</span>
-                        <input type="name" id="code"  readonly>
+                        <input type="text" id="code"  readonly>
                     </div> 
                 </div>
                 <div class="one-half last-column">
                     <div class="input-style has-icon input-style-1 input-required bottom-30">
                         <i class="input-icon fa fa-coins"></i>
                         <span>City</span>
-                        <input type="name" id="money" placeholder="money" readonly style="color: #4a89dc"> 
+                        <input type="text" id="money" placeholder="money" readonly style="color: #4a89dc"> 
                     </div> 
                 </div>
                 <div>
@@ -162,13 +162,20 @@ crossorigin="anonymous"></script>
                     <label style="color: #4a89dc">목표 환율 지정</label>
                 </div>
                 <div class="one-half">
-                        <div class="input-style has-icon input-style-1 input-required bottom-30">
-                            <!-- <i class="input-icon fa fa-globe"></i> -->
-                            <img class="caption-image owl-lazy" data-src="images/pictures/korea_flag.png"/>
-                            <span></span>
-                            <input type="name" id="targetRate" placeholder="">
-                        </div> 
-                    </div>
+                    <div class="input-style has-icon input-style-1 input-required bottom-30">
+                        <!-- <i class="input-icon fa fa-globe"></i> -->
+                        <img class="caption-image owl-lazy" data-src="images/pictures/korea_flag.png"/>
+                        <span></span>
+                        <input type="name" id="targetRate" placeholder="">
+                    </div> 
+                </div>
+                <div class="one-half last-column">
+                    <div class="input-style has-icon input-style-1 input-required bottom-30">
+                        <i class="input-icon fa fa-coins"></i>
+                        <span>KRW</span>
+                        <input type="name" placeholder="목표 환율로 지정했을 때 금액(원)" id="targetTotal">
+                    </div> 
+                </div>
 
                 <div class="clear"></div>
                 <!-- <a href="javascript:applyFunction(this);" class="button bg-highlight button-full button-m shadow-large button-round-small bottom-25 top-10" style="text-decoration:none">환전 신청하기</a> -->
@@ -361,17 +368,17 @@ crossorigin="anonymous"></script>
 
 <script>
 $(function(){
-    $('#currency').focusout(function(){
-        $('#code').val($('#currency option:selected').val().toUpperCase() + ' (현재 환율로 계산시 예상 금액)');
-    })
+    // $('#currency').focusout(function(){
+    //     $('#code').val($('#currency option:selected').val().toUpperCase() + ' (현재 환율로 계산시 예상 금액)');
+    // })
 
-    $('#total').focusout(function(){
-        var total = $('#total').val();
-        $('#total').val($('#total').val().replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,'));
+    // $('#total').focusout(function(){
+    //     var total = $('#total').val();
+    //     //$('#total').val($('#total').val().replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,'));
 
-        var expect = total / 1000;
-        $('#money').val(expect);
-    })
+    //     // var expect = total / 1000;
+    //     // $('#money').val(expect);
+    // })
 });     // document.get.ready
 
 function applyFunction(){
@@ -403,6 +410,55 @@ function applyFunction(){
         }
     });
 }   // applyFunction();
+</script>
+
+<script>
+    $('#currency').change(function(){
+    var selectCountry = $('#currency option:selected').text();
+    
+    $.ajax({
+        url:'http://localhost:3000/nowRate',
+        type : 'GET',
+        success:function(data){
+            var country = Object.keys(data);
+            var nowrate = Object.values(data);
+            var selecteRate = '';
+            //console.log(commaFunction() + '!')
+            for(var count=0; count<country.length; count++)
+            {
+                if(country[count].includes(selectCountry))
+                {
+                    var arr = nowrate[count];
+                    for(var i=0; i<arr.length;i++) 
+                        console.log(arr[1]); // 현찰로 살때 환율
+                        selecteRate = arr[1];
+                        console.log($('#code').val() + arr[1]);
+
+                        $('#currency').focusout(function(){
+                            $('#code').val($('#currency option:selected').val().toUpperCase() + ' (현재 환율로 계산시 예상 금액) ' + arr[1]);
+                        })
+
+                        $('#total').focusout(function(){
+                            var total = $('#total').val();
+                            $('#total').val($('#total').val().replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,'));
+
+                            var rate = parseFloat(arr[1].replace(/,/g,""));
+                            console.log('rate : ' + rate + ", total : " + total);
+                            var expect = total / rate;
+                            $('#money').val(expect);
+                        })
+
+                        $('#targetRate').focusout(function(){
+                            var rate = parseFloat($('#targetRate').val());
+                            var total = parseFloat(($('#total').val()).replace(/,/g,""));
+                            console.log('rate : ' + rate + ', total : ' + total);
+                            $('#targetTotal').val(total / rate);
+                        })
+                }
+            }           
+        }
+    })
+});
 </script>
 
 
