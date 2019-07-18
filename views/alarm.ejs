@@ -3,48 +3,70 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Placement of Bootstrap 4 Toasts</title>
+<title>Increase Bootstrap 4 Toast Autohide Time</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <style>
-	.bs-example{
-   		margin: 20px;
-	}
+    .bs-example{
+        margin: 20px;
+        position: relative;
+    }
 </style>
+<script>
+    var result = '';
+    $.ajax({
+            url:'http://localhost:3000/savebox',
+            type : 'POST',
+            success:function(data){
+                console.log(data)
+                result = data.result;
+            }
+    });
+
+    $(document).ready(function(){
+        if(result = 'false')
+        {
+            $("#myToast").toast({ delay: 30000 });
+            $("#myToast").toast('show');
+        }
+        else{
+            $("#myToast2").toast({ delay: 30000 });
+            $("#myToast2").toast('show');       
+        }
+    });
+</script>
 </head>
 <body>
     <div class="bs-example">
-        <!-- Wrapping element -->
-        <div style="position: relative; min-height: 300px;">
-            <!-- Position toasts -->
-            <div style="position: absolute; top: 0; right: 0; min-width: 300px;">
-                <div class="toast fade show">
+            <div class="toast" id="myToast" style="position: absolute; top: 0; right: 0;">
                     <div class="toast-header">
-                        <strong class="mr-auto"><i class="fa fa-globe"></i> 환전 실패</strong>
-                        <small class="text-muted">just now</small>
-                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                        <strong class="mr-auto"><i class="fa fa-grav"></i> 환전 실패</strong>
+                        <small>just now</small>
+                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="toast-body">
-                        목표하신 환율에 도달하지 못하였습니다.
-                        환율 조정을 추천드립니다!
+                        <div>    목표하신 환율에 도달하지 못하였습니다.
+                                    환율 조정을 추천드립니다!<a href="/user/mypage">Click here!</a></div>
                     </div>
-                </div>
+            </div>
 
-                <div class="toast fade show">
+            <div class="toast" id="myToast2" style="position: absolute; top: 0; right: 0;">
                     <div class="toast-header">
-                        <strong class="mr-auto"><i class="fa fa-globe"></i> 환전 완료 </strong>
-                        <small class="text-muted">5 minutes ago</small>
-                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                        <strong class="mr-auto"><i class="fa fa-grav"></i> 환전 성공</strong>
+                        <small>just now</small>
+                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="toast-body">
-                        신청하신 환전이 완료되었습니다.
+                        <div>    신청하신 환전이 완료되었습니다!<a href="/user/mypage">Click here!</a></div>
                     </div>
-                </div>
-            </div>    
-        </div>
+            </div>
     </div>
 </body>
-</html>                                                        
+</html>                            
