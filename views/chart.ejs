@@ -81,7 +81,7 @@
 
           var materialOptions = {
             chart: {
-              title: 'Average Temperatures and Daylight in Iceland Throughout the Year'
+              title: '3개월 환율정보'
             },
             width: 900,
             height: 500,
@@ -181,13 +181,20 @@ $(function(){
 
 <div class="dropdown" id="mydrop">
   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    달러임
+    미국 USD
   </button>
   <div class="dropdown-menu" id="drop-down" aria-labelledby="dropdownMenuButton">
-      <button class="dropdown-item" type="button" id="yuro" onclick="setDropdown('유로임','EUR')">유로임</button>
-      <button class="dropdown-item" type="button" id="dollar" onclick="setDropdown('달러임','USD')">달러임</button>
-      <button class="dropdown-item" type="button" id="enhwa"  onclick="setDropdown('엔화임','JPY')">엔화임</button>
-  </div>
+      <button class="dropdown-item" type="button" id="yuro" onclick="setDropdown('유럽연합 EUR','EUR')">유럽연합 EUR</button>
+      <button class="dropdown-item" type="button" id="dollar" onclick="setDropdown('미국 USD','USD')">미국 USD</button>
+      <button class="dropdown-item" type="button" id="enhwa"  onclick="setDropdown('일본 JPY (100엔)','JPY')">일본 JPY (100엔)</button>
+      <button class="dropdown-item" type="button" id="cny"  onclick="setDropdown('중국 CNY','CNY')">중국 CNY</button>
+      <button class="dropdown-item" type="button" id="hkd"  onclick="setDropdown('홍콩 HKD','HKD')">홍콩 HKD</button>
+      <button class="dropdown-item" type="button" id="gbp"  onclick="setDropdown('영국 GBP','GBP')">영국 GBP</button>
+      <button class="dropdown-item" type="button" id="chf"  onclick="setDropdown('스위스 CHF','CHF')">스위스 CHF</button>
+      <button class="dropdown-item" type="button" id="aud"  onclick="setDropdown('호주 AUD','AUD')">호주 AUD</button>
+      <button class="dropdown-item" type="button" id="czk"  onclick="setDropdown('체코 CZK','CZK')">체코 CZK</button>
+      <button class="dropdown-item" type="button" id="thb"  onclick="setDropdown('태국 THB','THB')">태국 THB</button>
+    </div>
 </div>
 
 

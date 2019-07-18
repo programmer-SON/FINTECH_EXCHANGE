@@ -3,6 +3,7 @@ const request = require("request");
 const cheerio = require("cheerio");
 var async = require("async");
 const log = console.log;
+var iconv = require('iconv-lite');
 
 const getHtml = async () => {
    try {
@@ -188,7 +189,7 @@ function getData() {
 
 exports.RateTable = function (callback) {
  function RateTable() {
-    request("https://finance.naver.com/marketindex/exchangeList.nhn", function (err, res, body) {
+    request({uri:"https://finance.naver.com/marketindex/exchangeList.nhn", encoding: "binary"}, function (err, res, body) {
         // console.log(body);
         const $ = cheerio.load(body);
         var code = [];
@@ -200,16 +201,14 @@ exports.RateTable = function (callback) {
             if (str.includes("USD") || str.includes("CHF")||str.includes("JPY")||
             str.includes("EUR")||str.includes("CNY")||str.includes("GBP")||str.includes("AUD")||
             str.includes("HKD")||str.includes("CZK")||str.includes("THB")) {
+              
+              var str = $(element).find('a').text().trim();
+              //var content = fs.readFileSync('test_euckr.txt', "binary");
+              str = iconv.decode(str, "euc-kr");
               rate.push($(element).find('td.sale').text());
               rate.push($(element).find('td:nth-child(7n+3)').text());
               rate.push($(element).find('td:nth-child(7n+4)').text());
               
-              /*
-              CurrentRate['country'] += $(element).find('a').text().trim() + " / ";
-              CurrentRate['rate'] += $(element).find('td.sale').text() + " / ";
-              CurrentRate['buyCash'] += $(element).find('td:nth-child(7n+3)').text()+ " / ";
-              CurrentRate['refundCash'] += $(element).find('td:nth-child(7n+4)').text()+ " / ";
-              */
              CurrentRate[str] = rate;
             }
             
