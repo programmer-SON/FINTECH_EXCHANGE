@@ -7,9 +7,10 @@ var jwt = require('jsonwebtoken');
 //var client = require('cheerio-httpcli');
 
 var connection = mysql.createConnection({
+  port : "3306",
   host     : 'localhost',
   user     : 'root',
-  password : 'gotjr2828',
+  password : 'thdus3281',
   database : 'fintech'
 });
 

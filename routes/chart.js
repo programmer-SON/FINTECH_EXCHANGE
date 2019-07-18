@@ -5,10 +5,11 @@ var router = express.Router();
 //var client = require('cheerio-httpcli');
 
 var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : 'gotjr2828',
-  database : 'fintech'
+    port : "3306",
+    host     : 'localhost',
+    user     : 'root',
+    password : 'thdus3281',
+    database : 'fintech'
 });
 
 
