@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            Logout
+        </title>
+    </head>
+    <body>
+        <% var myid = id.user_id%>
+        <% if(myid === 'kim'){ %>
+            <h1>Hello <%=myid%></h1>
+        <% }%>
+        <form action="/logout" method = "POST">
+            <button type="submit"> logut</button>
+        </form>
+    </body>
+</html>

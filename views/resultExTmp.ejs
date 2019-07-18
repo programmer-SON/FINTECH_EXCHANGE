@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" charset="UTF-8">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.14.2/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.14.2/dist/bootstrap-table.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.14.2/dist/bootstrap-table-locale-all.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.14.2/dist/extensions/export/bootstrap-table-export.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.14.2/dist/extensions/editable/bootstrap-table-editable.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script
+  src="https://code.jquery.com/jquery-2.2.4.js"
+  integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+  crossorigin="anonymous"></script>
+  <style>
+    .btn-label {
+        position: relative;
+        left: -12px;
+        display: inline-block;
+        padding: 6px 12px;
+        background: rgba(0,0,0,0.15);
+        border-radius: 3px 0 0 3px;}
+    .btn-labeled {
+        padding-top: 0;
+        padding-bottom: 0;}
+    .btn { margin-bottom:10px; }
+    
+    .container {
+        width: 1024px;
+        padding: 2em;
+    }
+
+    .bold-blue {
+        font-weight: bold;
+        color: #0277BD;
+    }
+  </style>
+</head>
+<body>
+    <div class="container">
+        <table id="table" 
+                data-toggle="table"
+                data-show-toggle="false"
+                data-show-columns="true"
+                data-id-field="Country"
+                data-show-footer="false"
+                data-filter-control="true" 
+                data-show-export="false"
+                data-height="420"														 
+                data-pagination="true"
+                data-locale = 'en-US'
+                     >
+            <thead>
+            <tr>
+                <th data-field="Country" data-required="true" data-filter-control="input" data-sortable="true" data-editable="true">통화명</th>
+                <th data-field="Rate" data-filter-control="select" data-sortable="true" data-formatter="groupFormatter">매매기준율</th>
+                <th data-field="buyCash"  data-filter-control="select" data-sortable="true" data-editable="true">현찰 사실 때 </th>
+                <th data-field="returnCash" data-filter-control="select" data-sortable="true" data-editable="true">현찰 파실 때</th>
+            </tr>
+
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        </div>
+
+    <div class="container">
+                <button type="button" class="btn btn-labeled btn-info" id = "refreshBtn">
+                    <span class="btn-label"><i class="glyphicon glyphicon-refresh"></i>
+                    </span>Refresh</button>
+    </div>
+
+<script>
+
+        
+    $('#refreshBtn').click(function(){
+        
+            $.ajax({
+                    url:'http://localhost:3000/nowRate',
+                    type : 'GET',
+                success:function(data){
+                    //var json = JSON.parse(data);
+                    var country = Object.keys(data);
+                    var nowrate = Object.values(data);
+                    console.log(nowrate);
+                  var tbody = $('tbody');
+                  
+                  for(var count=0; count<country.length; count++)
+                  {
+                    var str = '<tr>' + '<th>' + country[count] + '</th>';
+                    
+                    var arr = nowrate[count];
+                    for(var i=0; i<arr.length;i++) str = str + '<th>' + arr[i] + '</th>';
+                    str = str + '</tr>';
+                    tbody.append(str); 
+                  }                    
+                }
+            })
+    });
+        
+</script>
+
+</body>
