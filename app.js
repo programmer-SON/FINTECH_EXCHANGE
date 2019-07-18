@@ -19,6 +19,13 @@ var connection = mysql.createConnection({
   database : 'fintech'
 });
 
+var user = {
+    email : '',
+    name : '',
+    password:'',
+    logined : false
+}
+
 app = express();
 
 var port = process.env.PORT || 3000;
@@ -48,13 +55,20 @@ app.use('/exchange',exchangeRouter);
 
 ////////////////////////////////////////////////////////
 
+app.get('/',function(req,res){
+    
+    if(!req.session.user)  req.session.user = user;
+    res.render('main', {session : req.session.user});        
+})
+
 
 /////////////////////////////////////////////
 app.get('/nowRate', function(req, res){
     rate.RateTable(function(data){
         res.json(data);
     })
-})
+});
+
 
 app.listen(port);
 
