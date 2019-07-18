@@ -63,19 +63,22 @@ app.get('/',function(req,res){
 
 var scheduler = schedule.scheduleJob('*/5 * * * * *', function(){
     rate.RateTable(function(data){
-        var sql = "SELECT INTO fintech.e_rate (E_id, id, code, E_rate, E_money, E_date, E_check) VALUES (?,?,?,?,?,?,?)";
-        
-            connection.query(sql, [11234,myid, code, targetRate, total, endDate, 0], function(error, result){
-            if(error)
-            {
-                console.error(error);
-                throw error;
-            }else
-            {
-                console.log("data input is done")
-                res.json(1);
-            }
-        })
+        var sp = Object.keys(data).split(' ');
+        var code = sp[1];
+        var currency = Object.values(data);
+        var user_id = request.session.user.id;
+        var sql = "SELECT * FROM fintech.e_rate " +
+                  "WHERE E_rate = ? AND E_code = ? AND E_check = 0";
+            // connection.query(sql, [,myid, code, targetRate, total, endDate, 0], function(error, result){
+            //     if(error){
+            //         console.error(error);
+            //         throw error;
+            //     }else{
+
+            //         console.log("data input is done")
+            //         res.json(1);
+            //     }
+            // })
     })
 });
 
