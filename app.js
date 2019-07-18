@@ -199,7 +199,7 @@ app.post('/savebox',function(req,res){
             //console.log(ok);
 
             console.log(today);
-            if(results[i].E_date == today){
+            if(results[i].E_date >= today){
                 if(ok == '0')
                 {
                     //res.render('alarm',{result:'false'})
