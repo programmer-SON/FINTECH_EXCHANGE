@@ -348,38 +348,26 @@ function applyFunction(){
 
 <script>
     $('#currency').change(function(){
-        alert($(this).val());
-        alert($(this).children("option:selected".text()));
-    });
-$('#refreshBtn').click(function(){
-    $.ajax({
+        var selectCountry = $('#currency option:selected').text();
+        
+        $.ajax({
             url:'http://localhost:3000/nowRate',
             type : 'GET',
-        success:function(data){
-            //var json = JSON.parse(data);
-            var country = Object.keys(data);
-            var nowrate = Object.values(data);
-            console.log(country);
-          var tbody = $('tbody');
-          $('td').remove();
-            /*
-          if($('td') != null)
-          {
-              console.log('notnull')
-              $('td').remove();
-          }
-          */
-        for(var count=0; count<country.length; count++)
-        {
-            var str = '<tr>' + '<td>' + country[count] + '</td>';
-            
-            var arr = nowrate[count];
-            for(var i=0; i<arr.length;i++) str = str + '<td>' + arr[i] + '</td>';
-            str = str + '</tr>';
-            tbody.append(str); 
-        } 
-                        
-        }
-    })
-});
+            success:function(data){
+                var country = Object.keys(data);
+                var nowrate = Object.values(data);
+                var selecteRate = '';
+                for(var count=0; count<country.length; count++)
+                {
+                    if(country[count].includes(selectCountry))
+                    {
+                        var arr = nowrate[count];
+                        for(var i=0; i<arr.length;i++) 
+                            console.log(arr[1]); // 현찰로 살때 환율
+                            selecteRate = arr[1];
+                    }
+                }           
+            }
+        })
+    });
 </script>
