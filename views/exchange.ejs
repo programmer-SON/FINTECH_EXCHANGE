@@ -383,12 +383,6 @@ $(function(){
 
 function applyFunction(){
     var code = $('#currency option:selected').val();
-    var rate;
-    // 현재 환율 가져와서 select !!!!
-    if(code == 'usd')
-    {
-        rate = 1000;
-    }
     var total = parseInt(($('#total').val()).replace(/,/g,""));
     var endDate = $('#endDate').val();
     var targetRate = $('#targetRate').val();
@@ -396,7 +390,7 @@ function applyFunction(){
     console.log(code + ", " + total + ", " + endDate + ", " + targetRate);
 
     $.ajax({
-        url : 'http://localhost:3000/exchange/exchange',
+        url : 'http://localhost:3000/exchange',
         type : 'POST',
         data : {
             code : code,
@@ -405,8 +399,8 @@ function applyFunction(){
             targetRate : targetRate
         },
         success : function(data){
-            console.log(code + " " + total + "\n" + enddDate + " 목표 환율 : " + targetRate);
-            alert(code + " " + total + "\n" + enddDate + " 목표 환율 : " + targetRate);
+            console.log(code + " " + total + "\n" + endDate + " 목표 환율 : " + targetRate);
+            alert(" 목표 환율 : " + targetRate + " 으로 환전 신청완료 !");
         }
     });
 }   // applyFunction();
