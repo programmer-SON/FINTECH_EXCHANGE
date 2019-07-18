@@ -9,7 +9,7 @@ var qrRouter = require('./routes/qr');
 var chartRouter = require('./routes/chart');
 var exchangeRouter = require('./routes/exchange');
 var userRouter = require('./routes/user');
-
+var schedule = require('node-schedule'); 
 //var client = require('cheerio-httpcli');
 
 var connection = mysql.createConnection({
@@ -61,6 +61,23 @@ app.get('/',function(req,res){
     res.render('main', {session : req.session.user});        
 })
 
+var scheduler = schedule.scheduleJob('*/5 * * * * *', function(){
+    rate.RateTable(function(data){
+        var sql = "SELECT INTO fintech.e_rate (E_id, id, code, E_rate, E_money, E_date, E_check) VALUES (?,?,?,?,?,?,?)";
+        
+            connection.query(sql, [11234,myid, code, targetRate, total, endDate, 0], function(error, result){
+            if(error)
+            {
+                console.error(error);
+                throw error;
+            }else
+            {
+                console.log("data input is done")
+                res.json(1);
+            }
+        })
+    })
+});
 
 /////////////////////////////////////////////
 app.get('/nowRate', function(req, res){
