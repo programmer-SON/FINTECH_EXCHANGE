@@ -1,17 +1,17 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
-    <title>나의 환전</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i|Source+Sans+Pro:300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/styles/style.css">
-    <link rel="stylesheet" type="text/css" href="/styles/framework.css">
-    <link rel="stylesheet" type="text/css" href="/fonts/css/fontawesome-all.min.css">
-    <link rel="stylesheet" href="/styles/bootstrap.min.css">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com.font-awesome/4.3.0/css/font-awesome.min.css">
- </head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+<title>나의 환전</title>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i|Source+Sans+Pro:300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="styles/style.css">
+<link rel="stylesheet" type="text/css" href="styles/framework.css">
+<link rel="stylesheet" type="text/css" href="fonts/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/styles/boostrap/bootstrap.min.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com.font-awesome/4.3.0/css/font-awesome.min.css">
+</head>
     
 <body class="theme-light" data-background="none" data-highlight="blue2">
         
@@ -132,8 +132,8 @@
                 <div class="one-half last-column">
                     <div class="input-style has-icon input-style-1 input-required bottom-30">
                         <i class="input-icon fa fa-coins"></i>
-                        <span>100 ~ 2,000</span>
-                        <input type="name" placeholder="money" id="money">
+                        <span>KRW</span>
+                        <input type="name" placeholder="총 환전할 금액(원)" id="total">
                     </div> 
                 </div>    
             </div>
@@ -146,19 +146,19 @@
                         <!-- <i class="input-icon fa fa-globe"></i> -->
                         <img class="caption-image owl-lazy" data-src="images/pictures/korea_flag.png"/>
                         <span>KRW</span>
-                        <input type="name" placeholder="KRW" readonly>
+                        <input type="name" id="code"  readonly>
                     </div> 
                 </div>
                 <div class="one-half last-column">
                     <div class="input-style has-icon input-style-1 input-required bottom-30">
                         <i class="input-icon fa fa-coins"></i>
                         <span>City</span>
-                        <input type="name" id="krw" placeholder="money" readonly style="color: #4a89dc"> 
+                        <input type="name" id="money" placeholder="money" readonly style="color: #4a89dc"> 
                     </div> 
                 </div>
                 <div>
-                    <label style="color: #4a89dc">환전 날짜 선택</label><br>
-                    <input type="date" id="startDate"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" id="endDate"/><br><br><br>
+                    <label style="color: #4a89dc">환전 예약 날짜 기한</label><br>
+                    <input type="date" id="endDate"/><br><br><br>
                 </div>
                 <div>
                     <label style="color: #4a89dc">목표 환율 지정</label>
@@ -168,7 +168,7 @@
                             <!-- <i class="input-icon fa fa-globe"></i> -->
                             <img class="caption-image owl-lazy" data-src="images/pictures/korea_flag.png"/>
                             <span></span>
-                            <input type="name" id="targetMoney" placeholder="0000원 이하">
+                            <input type="name" id="targetRate" placeholder="">
                         </div> 
                     </div>
 
@@ -363,44 +363,52 @@
 
 <script>
 $(function(){
-    $('#money').focusout(function(){
-        var exchangeMoney = $('#money').val() * 1000;
-        $('#krw').val(exchangeMoney);
-    });
+    $('#currency').focusout(function(){
+        $('#code').val($('#currency option:selected').val().toUpperCase() + ' (현재 환율로 계산시 예상 금액)');
+    })
+
+    $('#total').focusout(function(){
+        var total = $('#total').val();
+        $('#total').val($('#total').val().replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,'));
+
+        var expect = total / 1000;
+        $('#money').val(expect);
+    })
 });     // document.get.ready
 
 function applyFunction(){
-    var type = $('#currency option:selected').val();
+    var code = $('#currency option:selected').val();
     var rate;
-    if(type == 'usd')
+    // 현재 환율 가져와서 select !!!!
+    if(code == 'usd')
     {
         rate = 1000;
     }
-    var krw = $('#krw').val();
-    var startDate = $('#startDate').val();
+    var total = parseInt(($('#total').val()).replace(/,/g,""));
     var endDate = $('#endDate').val();
-    var targetMoney = $('#targetMoney').val();
+    var targetRate = $('#targetRate').val();
+
+    console.log(code + ", " + total + ", " + endDate + ", " + targetRate);
 
     $.ajax({
         url : 'http://localhost:3000/exchange',
         type : 'POST',
         data : {
-            type : type,
-            rate : rate,
-            krw : krw,
-            startDate : startDate,
+            code : code,
+            total : total,
             endDate : endDate,
-            targetMoney : targetMoney
+            targetRate : targetRate
         },
         success : function(data){
-            alert(data);
+            console.log(code + " " + total + "\n" + enddDate + " 목표 환율 : " + targetRate);
+            alert(code + " " + total + "\n" + enddDate + " 목표 환율 : " + targetRate);
         }
-    });s
+    });
 }   // applyFunction();
 </script>
 
 
-<script type="text/javascript" src="/scripts/jquery.js"></script>
-<script type="text/javascript" src="/scripts/plugins.js"></script>
-<script type="text/javascript" src="/scripts/custom.js"></script>
+<script type="text/javascript" src="scripts/jquery.js"></script>
+<script type="text/javascript" src="scripts/plugins.js"></script>
+<script type="text/javascript" src="scripts/custom.js"></script>
 </body>
