@@ -69,6 +69,10 @@ app.get('/nowRate', function(req, res){
     })
 });
 
+app.get('/exchange2',function(req,res){
+    res.render('exchang2');
+});
+
 app.get('/alarm',function(req,res){
     res.render('alarm');
 })
