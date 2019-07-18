@@ -49,41 +49,6 @@ app.use('/exchange',exchangeRouter);
 ////////////////////////////////////////////////////////
 
 
-
-
-app.get('/', function(req, res){
-    req.session.logined = false;
-    res.render('main',{session : req.session});
-});
-
-app.get('/signup', function(req, res){
-    res.render('signup');
-});
-
-app.get('/mypage', function(req, res){
-    res.render('mypage');
-})
-
-app.get('/wallet', function(req, res){
-     res.render('wallet',);
-})
-
-app.get('/register', function(req, res){
-    res.render('register');
-})
-
-app.get('/viewLogin',function(req,res){
-
-    res.render('login');
-})
-
-app.post('/login', function(req, res){
-
- 
-})
-
-
-
 /////////////////////////////////////////////
 app.get('/nowRate', function(req, res){
     rate.RateTable(function(data){
