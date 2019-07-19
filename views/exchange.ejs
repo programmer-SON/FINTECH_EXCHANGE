@@ -156,11 +156,11 @@
                     </div> 
                 </div>
                 <div>
-                    <label style="color: #4a89dc">환전 예약 날짜 기한</label><br>
+                    <label style="color: #4a89dc"><h4>환전 예약 날짜 기한</h4></label><br>
                     <input type="date" id="endDate"/><br><br><br>
                 </div>
                 <div>
-                    <label style="color: #4a89dc">목표 환율 지정</label>
+                    <label style="color: #4a89dc"><h4>목표 환율 지정</h4></label>
                 </div>
                 <div class="one-half">
                     <div class="input-style has-icon input-style-1 input-required bottom-30">
@@ -180,7 +180,7 @@
 
                 <div class="clear"></div>
                 <!-- <a href="javascript:applyFunction(this);" class="button bg-highlight button-full button-m shadow-large button-round-small bottom-25 top-10" style="text-decoration:none">환전 신청하기</a> -->
-                <input type="button" onclick="applyFunction();" value="환전하기"/>
+                <input type="button" onclick="applyFunction();" class="button button-s button-round-large button-center-medium shadow-huge bottom-30" style="background: #428bca; text-decoration:none; border-radius: 25px;" value="환전하기"/>
             </div>
             
         </div>
@@ -425,7 +425,8 @@ function applyFunction(){
                 if(country[count].includes(selectCountry))
                 {
                     var arr = nowrate[count];
-                    for(var i=0; i<arr.length;i++) 
+                    for(var i=0; i<arr.length;i++)
+                     
                         console.log(arr[1]); // 현찰로 살때 환율
                         selecteRate = arr[1];
                         console.log($('#code').val() + arr[1]);

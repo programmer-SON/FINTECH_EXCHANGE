@@ -98,6 +98,17 @@
                                 <%}%>
                             </td>
                             <td>
+                                <% if(datas[i].code === 'usd') {%>
+                                    <p><h3> $ <%= Math.round(datas[i].E_money / 1172) %></h3></p>
+                                <%}%>
+                                <% if(datas[i].code === 'eur') {%>
+                                    <p><h3> $ <%= Math.round(datas[i].E_money / 1320) %></h3></p>
+                                <%}%>
+                                <% if(datas[i].code === 'jpy') {%>
+                                    <p><h3> $ <%= Math.round(datas[i].E_money / 1090) %></h3></p>
+                                <%}%>
+                            </td>
+                            <td>
                                 <a href="#" class="button button-s button-round-large button-center-medium shadow-huge" style="margin : auto; width : 100px; height: 30px; background: #428bca"
                                 onclick="Success()">환전하기</a>
                             </td>
