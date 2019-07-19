@@ -11,10 +11,11 @@
 <link rel="stylesheet" type="text/css" href="/fonts/css/fontawesome-all.min.css">
 <link rel="stylesheet" href="/styles/boostrap/bootstrap.min.css">
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com.font-awesome/4.3.0/css/font-awesome.min.css">
-<script
-src="https://code.jquery.com/jquery-2.2.4.js"
-integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
-crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://rawgit.com/Soldier-B/jquery.toast/master/jquery.toast/jquery.toast.min.css" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src ="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.js"></script>
+
 </head>
     
 <body class="theme-light" data-background="none" data-highlight="blue2">
@@ -26,7 +27,7 @@ crossorigin="anonymous"></script>
     </div>
     
 	<% include ./header.ejs %>
-    
+    <% include ./alarm.ejs %>
     <!-- <div id="footer-menu" class="footer-menu-5-icons footer-menu-style-1">
         <a href="index.html" class="active-nav"><i class="fa fa-home"></i><span>Home</span></a>
         <a href="index-components.html"><i class="fa fa-star"></i><span>Features</span></a>
@@ -429,7 +430,7 @@ function applyFunction(){
                         console.log($('#code').val() + arr[1]);
 
                         $('#currency').focusout(function(){
-                            $('#code').val($('#currency option:selected').val().toUpperCase() + ' (현재 환율로 계산시 예상 금액) ' + arr[1]);
+                            $('#code').val($('#currency option:selected').val().toUpperCase() + ' (현재 환율) ' + arr[1]);
                         })
 
                         $('#total').focusout(function(){
@@ -439,14 +440,14 @@ function applyFunction(){
                             var rate = parseFloat(arr[1].replace(/,/g,""));
                             console.log('rate : ' + rate + ", total : " + total);
                             var expect = total / rate;
-                            $('#money').val(expect);
+                            $('#money').val(expect.toFixed(3));
                         })
 
                         $('#targetRate').focusout(function(){
                             var rate = parseFloat($('#targetRate').val());
                             var total = parseFloat(($('#total').val()).replace(/,/g,""));
                             console.log('rate : ' + rate + ', total : ' + total);
-                            $('#targetTotal').val(total / rate);
+                            $('#targetTotal').val((total / rate).toFixed(3));
                         })
                 }
             }           

@@ -171,7 +171,7 @@ app.get('/alarm',function(req,res){
 })
 
 app.post('/savebox',function(req,res){
-    var sql = "SELECT * FROM fintech.e_rate;";
+    var sql = "SELECT * FROM fintech.e_rate WHERE E_date = ? ";
     var ok = ''
     var goalday = ''
                 
@@ -189,18 +189,19 @@ app.post('/savebox',function(req,res){
     } 
     dd = dd+7;
     today = yyyy+'-'+mm+'-'+dd;
-    connection.query(sql, function (error, results, fields) {
+    connection.query(sql,[today] ,function (error, results, fields) {
         if (error) throw error;
         
         for(var i = 0;i<results.length;i++)
         {
+            console.log(results[i]);
             ok = results[i].E_check;
             goalday = results[i].E_date; //목표날짜
             //console.log(ok);
 
             //console.log(goalday)
             //console.log(today);
-            if(results[i].E_date == today){
+            if(results[i].E_date === today){
                 if(ok == '0')
                 {
                     //res.render('alarm',{result:'false'})
