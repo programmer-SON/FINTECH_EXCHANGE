@@ -391,7 +391,7 @@ function applyFunction(){
     console.log(code + ", " + total + ", " + endDate + ", " + targetRate);
 
     $.ajax({
-        url : 'http://localhost:3000/exchange',
+        url : 'http://localhost:3000/exchange/exchange',
         type : 'POST',
         data : {
             code : code,
@@ -402,6 +402,7 @@ function applyFunction(){
         success : function(data){
             console.log(code + " " + total + "\n" + endDate + " 목표 환율 : " + targetRate);
             alert(" 목표 환율 : " + targetRate + " 으로 환전 신청완료 !");
+            location.href = "http://localhost:3000/user/mypage"
         }
     });
 }   // applyFunction();

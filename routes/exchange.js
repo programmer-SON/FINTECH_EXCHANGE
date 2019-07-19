@@ -20,8 +20,10 @@ router.get('/viewExchange',function(req,res){
 });
 
 router.post('/exchange', function(req, res){
-    var email = req.session.user.email;
-    var myid = req.session.user.id;
+    //var email = req.session.user.email;
+    //var myid = req.session.user.id;
+    var eid = 4414
+    var myid = 1234;
     var code = req.body.code;
     var total = req.body.total;
     var endDate = req.body.endDate;
@@ -30,7 +32,7 @@ router.post('/exchange', function(req, res){
     var sql = "INSERT INTO fintech.e_rate (E_id, id, code, E_rate, E_money, E_date, E_check) VALUES (?,?,?,?,?,?,?)";
 
     //connection.query(sql, [112233, code, targetRate, total, endDate, 0], function(error, result){
-        connection.query(sql, [11234,myid, code, targetRate, total, endDate, 0], function(error, result){
+        connection.query(sql, [eid,myid, code, targetRate, total, endDate, 0], function(error, result){
         if(error)
         {
             console.error(error);

@@ -20,7 +20,7 @@ var port = process.env.PORT || 3000;
 
 connection.connect();
 
-router.get('/tmpQR', function(req,res){
+router.get('/viewQR', function(req,res){
   var payData = {
     userId : '손준우',//req.body.userId,
     cost : '1000'//req.body.cost

@@ -8,8 +8,9 @@
 <script type="text/javascript" src="/scripts/qrcode.js"></script>
 </head>
 <body>
-<input id="text" type="text" value="http://localhost:3000/withdraw/<%=pay.userId%>/<%=pay.cost%>" 
-style="width:80%" /><br />  <!--url던지는 값이 이것이 옳은것인가?, QR코드 실행할려면 서버 필요-->
+<input id="text" type="hidden" value="http://localhost:3000/withdraw/<%=pay.userId%>/<%=pay.cost%>" 
+style="width:80%" /><br />  
+<!--url던지는 값이 이것이 옳은것인가?, QR코드 실행할려면 서버 필요-->
 <div id="qrcode" style="width:100px; height:100px; margin-top:15px;"></div>
 
 <script type="text/javascript">
