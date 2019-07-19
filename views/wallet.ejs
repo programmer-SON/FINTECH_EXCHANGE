@@ -87,6 +87,27 @@
                             onclick="Refund()">환불하기</a>
                         </td>
                     </tr>
+                    <% for(var i=0; i< datas.length; i++) {%>
+                        <tr>
+                            <td>
+                                <p><h3><%= datas[i].E_date %></h3></p>
+                            </td>
+                            <td>
+                                <% if(datas[i].code === 'usd') {%>
+                                    <p><h3> $ <%= Math.round(datas[i].E_money / 1,172) %></h3></p>
+                                <%}%>
+                            </td>
+                            <td>
+                                <a href="#" class="button button-s button-round-large button-center-medium shadow-huge" style="margin : auto; width : 100px; height: 30px; background: #428bca"
+                                onclick="Success()">환전하기</a>
+                            </td>
+                            <td>
+                                <a href="#" class="button button-s button-round-large button-center-medium shadow-huge" style="margin : auto; width : 100px; height: 30px; background: #428bca"
+                                onclick="Refund()">환불하기</a>
+                            </td>
+                        </tr>
+                    
+                    <%}%>   
                 </table>                        
             </div>
         </div>

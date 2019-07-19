@@ -34,7 +34,17 @@ router.get('/mypage', function(req, res){
 })
 
 router.get('/wallet', function(req, res){
-    res.render('wallet');
+    var sql = "SELECT * FROM fintech.e_rate"
+
+    connection.query(sql, function (error, results, fields) {
+        if(error){
+        console.error(error);
+        }
+        else {
+            console.log(results);
+            res.render('wallet' , {datas : results});
+        }
+    });
 })
 
 router.get('/register', function(req, res){
