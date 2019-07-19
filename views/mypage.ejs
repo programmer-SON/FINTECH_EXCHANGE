@@ -86,7 +86,7 @@
                         <%for(var i=0; i<datas.length;i++){ %>
                             <tr> 
                                <td> <%= datas[i].E_date %> </td>
-                               <td> <%= datas[i].code%></td>
+                               <td> <%= datas[i].code.toUpperCase()%></td>
                                <td> <%= datas[i].E_money %></td>
                                <td>
                                <% if(datas[i].E_check == 0) {%> 
@@ -103,7 +103,7 @@
                                 2019-07-15 
                             </td>
                             <td>
-                                미국 USD
+                                USD
                             </td>
                             <td>
                                 $200 
@@ -117,7 +117,7 @@
                                 2019-07-15 
                             </td>
                             <td>
-                                영국 GBP
+                                GBP
                             </td>
                             <td>
                                 £50 
