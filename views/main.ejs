@@ -50,6 +50,7 @@
         table.dataTable thead .sorting_desc_disabled:after,
         table.dataTable thead .sorting_desc_disabled:before {
         bottom: .5em;
+
         }
     .btn-label {
         position: relative;
@@ -99,27 +100,28 @@
         <div class="single-slider owl-carousel owl-no-dots bottom-0">
             <div class="caption shadow-large bottom-15">
                 <div class="caption-bottom">
-                    <h1 class="color-white center-text bolder">나의 환전</h1>
-                    <p class="under-heading color-white center-text bottom-20 opacity-80">The Menu Everyone Requested.</p>
-                </div>
-                <div class="caption-overlay bg-gradient"></div>
-                <img class="caption-image owl-lazy" data-src="images/pictures/exchange_main_image.jpg">
-            </div>
-            <div class="caption shadow-large bottom-15">
-                <div class="caption-bottom">
-                    <h1 class="color-white center-text bolder">나의 환전</h1>
-                    <p class="under-heading color-white center-text bottom-20 opacity-80">The Menu Everyone Requested.</p>
+                    <h1 class="color-white center-text bolder" style="top:100px; width:100%; height:70%; text-align:center; 
+                    line-height:800px; font-size: 5em; font-family: sans-serif;">My Exchange</h1>
+                   
                 </div>
                 <div class="caption-overlay bg-gradient"></div>
                 <img class="caption-image owl-lazy" data-src="images/pictures/main1.jpg">
             </div>
             <div class="caption shadow-large bottom-15">
                 <div class="caption-bottom">
-                    <h1 class="color-white center-text bolder">Carefuly Built</h1>
-                    <p class="under-heading color-white center-text bottom-20 opacity-80">Flexibility, Speed, Ease of Use.</p>
+                        <h1 class="color-white center-text bolder" style="top:100px; width:100%; height:70%; text-align:center; 
+                        line-height:800px; font-size: 5em; font-family: sans-serif;">My Exchange</h1>
                 </div>
                 <div class="caption-overlay bg-gradient"></div>
                 <img class="caption-image owl-lazy" data-src="images/pictures/main2.jpg">
+            </div>
+            <div class="caption shadow-large bottom-15">
+                <div class="caption-bottom">
+                        <h1 class="color-white center-text bolder" style="top:100px; width:100%; height:70%; text-align:center; 
+                        line-height:800px; font-size: 5em; font-family: sans-serif;">My Exchange</h1>
+                </div>
+                <div class="caption-overlay bg-gradient"></div>
+                <img class="caption-image owl-lazy" data-src="images/pictures/main3.jpg">
             </div>         
             <!-- <div class="caption caption-margins round-medium shadow-large bottom-15">
                 <div class="caption-bottom">
@@ -183,7 +185,7 @@
                 </div>
             </div>    
         </div> -->
-
+        <br><br><br><br>
         <div class="">
             <div class="content">
                 <% include ./chart.ejs %>
@@ -207,14 +209,15 @@
                 
                     <div class="container">
                                 <button type="button" class="btn btn-labeled btn-info" id = "refreshBtn">
-                                    <span class="btn-label"><i class="glyphicon glyphicon-refresh"></i>
+                                    <span class="btn-label">
+                                        <i class="glyphicon glyphicon-refresh"></i>
                                     </span>Refresh</button>
                     </div>
                 
                 </p>
             </div>
         </div>
-                
+        <br><br><br>    
         <div class="">
             <div class="content">
                 <h1 class="bolder center-text"></h1>
@@ -225,31 +228,17 @@
                 <div class="divider"></div>
                 <div class="grid-columns">
                     <div>
-                        <i class="fa fa-trophy color-yellow1-dark fa-3x"></i>
-                        <h3 class="bolder">Future Proof</h3>
-                        <p>
-                            Built to last, with the latest quality code.
-                        </p>
-                    </div>        
-                    <div>
-                        <i class="fab fa-cloudscale color-red1-dark fa-3x"></i>
-                        <h3 class="bolder">Powerful</h3>
-                        <p>
-                            Speed, Features and Flexibility all in One!
-                        </p>
-                    </div>
-                    <div>
                         <i class="fa fa-check color-green1-light fa-2x"></i>
-                        <h3 class="bolder">Easy to Use</h3>
+                        <h2 class="bolder">편리성</h2>
                         <p>
-                            Customers love our products for their ease.
+                            <h5>목표 환율 금액을 지정해보세요. <br>목표 금액에 도달하면 자동 환전이 가능합니다.</h5>
                         </p>
                     </div>   
                     <div>
                         <i class="far fa-life-ring color-blue2-dark fa-3x"></i>
-                        <h3 class="bolder">Customer Care</h3>
+                        <h2 class="bolder">보안성</h2>
                         <p>
-                            We treat others like we want to be treated.
+                            <h5>QR code가 발급되면 <br>현지에서 바로 수령하세요.</h5>
                         </p>
                     </div>
                 </div>
@@ -310,9 +299,11 @@
                 </div>
             </div>
         </div> -->
-
+        <br><br><br>
+        <hr>
         <div class="">
-            <h1 class="center-text bolder">지금 바로 나의 환전을 사용해보세요 !</h1>
+            <br><br><br><br><br><br>
+            <h1 class="center-text bolder">지금 바로 나의 환전을 사용해보세요 !</h1><br>
             <p class="center-text opacity-70 under-heading bottom-20 font-12">단, 가상계좌 입금방식의 경우 1일 100만원까지 가능합니다.</p>
 
             <p class="center-text bottom-20">
@@ -380,7 +371,7 @@
             </div>
         </div> -->
         
-        <div class="content-boxed">
+        <!-- <div class="content-boxed">
             <div class="footer">
                 <a href="#" class="footer-title uppercase ultrabold"><span class="color-highlight">Sticky</span></a>
                 <p class="footer-text">Experience and customer care is what define Enabled products. Our products and support are unmatched.</p>
@@ -429,7 +420,7 @@
                 </a>        
             </div>
         </div>
-    </div>
+    </div> -->
     <!--Menu Settings-->
     <div id="menu-settings" class="menu menu-box-bottom menu-box-detached round-large" data-menu-height="310" data-menu-effect="menu-over">
         <div class="content bottom-0">

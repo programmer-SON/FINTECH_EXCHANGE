@@ -18,8 +18,8 @@
 
     function setDropdown(currency, code){
       //console.log(currency);
-	    var btn = $('#dropdownMenuButton');
-	    btn.text(currency);
+       var btn = $('#dropdownMenuButton');
+       btn.text(currency);
       getCurrencyChart(code);
     }
     
@@ -77,8 +77,9 @@
           
           data.addRows(resultList);
 
-          $('#maxiVal').text('max : ' + maxi);
-          $('#miniVal').text('min : '+ mini);
+          $('#maxiVal').text('최고 환율: ' + maxi);
+          $('#miniVal').text('최저 환율 : '+ mini);
+          $('#averageVal').text('평균 환율 : '+ (maxi+mini)/2);
 
           var materialOptions = {
             chart: {
@@ -86,6 +87,8 @@
             },
             width: 900,
             height: 500,
+            margin: 0 ,
+            
             series: {
               // Gives each series an axis name that matches the Y-axis below.
               0: {axis: 'Temps'},
@@ -104,6 +107,7 @@
             title: '마! 3개월 차트다',
             width: 900,
             height: 500,
+            margin: 0 ,
             // Gives each series an axis that matches the vAxes number below.
             series: {
               0: {targetAxisIndex: 0},
@@ -169,15 +173,35 @@ $(function(){
     });
 })
 </script>
-
-<div style='display:inline;min-width:1200px;'><!--빨간 부분-->
-
-  <div style='display:inline;float:left;  width:1000px ' id="chart_div"></div> <!--파란부분-->
+<style>
+ .d_container{
+   position :relative;
+   width : 1500px;
+   margin : auto;
+   left : 20%;
+ }
+ .div_box{
+   position : absolute;
+   width : 200px;
+   left:80%;
    
-  <div style='display:inline;float:left; width:200px' id="maxiVal"></div>
+ } 
+</style>
 
-  <div style='display:inline;float:left; width:200px' id="miniVal"></div> <!--연두부분 -->
+<div  style='display:inline;min-width:1200px;'><!--빨간 부분-->
+
+  <div class="d_container" style='display:inline; float:left;  width:1000px ' id="chart_div"></div> <!--파란부분-->
+  <br>
+
 </div>
+<div class="div_box">
+    <div style='display:inline;float:left; width:200px' id="maxiVal"></div>
+    <div style='display:inline;' id="miniVal"></div> <!--연두부분 -->
+    <div style='display:inline;float:left; width:200px' id="averageVal"></div>
+</div>
+
+
+
 
 
 <div class="dropdown" id="mydrop">
