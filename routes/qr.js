@@ -55,6 +55,7 @@ router.get("/withdraw/:userId/:cost", function(req,res){
       if(err) throw err;
       else {
           console.log(body);
+          //결제 성공 OR 실패 결과 표시
           res.json(body);
       }
    });

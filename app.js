@@ -61,99 +61,99 @@ app.get('/',function(req,res){
     res.render('main', {session : req.session.user});        
 })
 
-var scheduler = schedule.scheduleJob('*/5 * * * *', function(){
-    rate.RateTable(function(data){
-        var sp = Object.keys(data);
-        var cur = Object.values(data);
+// var scheduler = schedule.scheduleJob('*/5 * * * *', function(){
+//     rate.RateTable(function(data){
+//         var sp = Object.keys(data);
+//         var cur = Object.values(data);
         
-        var code = [];
-        var currency = [];
-        var len = sp.length;
+//         var code = [];
+//         var currency = [];
+//         var len = sp.length;
 
-        var today = new Date();
-            var dd = today.getDate();
-            var mm = today.getMonth()+1; //January is 0!
-            var yyyy = today.getFullYear();
+//         var today = new Date();
+//             var dd = today.getDate();
+//             var mm = today.getMonth()+1; //January is 0!
+//             var yyyy = today.getFullYear();
 
-            if(dd<10) {
-                dd='0'+dd
-            } 
+//             if(dd<10) {
+//                 dd='0'+dd
+//             } 
 
-            if(mm<10) {
-                mm='0'+mm
-            }
+//             if(mm<10) {
+//                 mm='0'+mm
+//             }
 
-            today = yyyy+'-'+mm+'-'+dd;
-            console.log(today);
+//             today = yyyy+'-'+mm+'-'+dd;
+//             console.log(today);
         
-           for(var i=0; i<len; i++)
-           {
-                var tmpCode = sp[i].split(' ');
-                var tmpCur = cur[i][1].split(',');            
+//            for(var i=0; i<len; i++)
+//            {
+//                 var tmpCode = sp[i].split(' ');
+//                 var tmpCur = cur[i][1].split(',');            
                 
-                var str = String(tmpCur[0]);
+//                 var str = String(tmpCur[0]);
 
-                for(var j=1; j<tmpCur.length;j++)
-                {
-                    str = str+String(tmpCur[j]);
-                }
+//                 for(var j=1; j<tmpCur.length;j++)
+//                 {
+//                     str = str+String(tmpCur[j]);
+//                 }
 
-                code.push(tmpCode[1]);
-                currency.push(str);
+//                 code.push(tmpCode[1]);
+//                 currency.push(str);
 
-           }
+//            }
 
         
-        //var user_id = request.session.user.id;
-        //console.log(sp);
-        var sql = "SELECT * FROM fintech.e_rate " +
-                  "WHERE   (CAST(E_rate as DECIMAL(9,2)) >= ? / 1.01 AND CAST(E_rate as DECIMAL(9,2)) <= ? * 1.01) "+ 
-                  "AND code = ? AND E_check = 0 AND " +
-                  "DATE_FORMAT(str_to_date(E_date,'%Y-%m-%d'),'%Y-%m-%d') <= ? ";
+//         //var user_id = request.session.user.id;
+//         //console.log(sp);
+//         var sql = "SELECT * FROM fintech.e_rate " +
+//                   "WHERE   (CAST(E_rate as DECIMAL(9,2)) >= ? / 1.01 AND CAST(E_rate as DECIMAL(9,2)) <= ? * 1.01) "+ 
+//                   "AND code = ? AND E_check = 0 AND " +
+//                   "DATE_FORMAT(str_to_date(E_date,'%Y-%m-%d'),'%Y-%m-%d') <= ? ";
     
-        for(let i=0; i<len;i++)
-        {
-                console.log(currency);
-                connection.query(sql, [currency[i], currency[i], code[i] , today], function(error, result){
-                if(error){
-                    console.error(error);
-                    throw error;
-                }else{
-                    //res.json(1);
-                    for(var cnt = 0; cnt<result.length; cnt++)
-                    {
-                        if(result[cnt] !== undefined)
-                        {                                
-                            var autoSql = "INSERT INTO savebox(id, boxid, code, money, current) "+
-                                          "VALUES(?,?,?,?,?) ";
+//         for(let i=0; i<len;i++)
+//         {
+//                 console.log(currency);
+//                 connection.query(sql, [currency[i], currency[i], code[i] , today], function(error, result){
+//                 if(error){
+//                     console.error(error);
+//                     throw error;
+//                 }else{
+//                     //res.json(1);
+//                     for(var cnt = 0; cnt<result.length; cnt++)
+//                     {
+//                         if(result[cnt] !== undefined)
+//                         {                                
+//                             var autoSql = "INSERT INTO savebox(id, boxid, code, money, current) "+
+//                                           "VALUES(?,?,?,?,?) ";
 
-                            connection.query(autoSql, [result[cnt].id, 1, result[cnt].code , String(Math.round(Number(result[cnt].E_money) / Number(currency[i])))  ,currency[i]], function(twoError, twoResult){
-                                if(twoError){
-                                    console.error(twoError);
-                                    throw twoError;
-                                }else{
-                                    //res.json(1);
-                                }
-                            });
+//                             connection.query(autoSql, [result[cnt].id, 1, result[cnt].code , String(Math.round(Number(result[cnt].E_money) / Number(currency[i])))  ,currency[i]], function(twoError, twoResult){
+//                                 if(twoError){
+//                                     console.error(twoError);
+//                                     throw twoError;
+//                                 }else{
+//                                     //res.json(1);
+//                                 }
+//                             });
                             
-                            var upSql = "UPDATE e_rate SET E_check = 1 "+
-                                        "WHERE E_id = ? "
+//                             var upSql = "UPDATE e_rate SET E_check = 1 "+
+//                                         "WHERE E_id = ? "
                                         
-                            connection.query(upSql, [result[cnt].E_id], function(twoError, twoResult){
-                                if(twoError){
-                                    console.error(twoError);
-                                    throw twoError;
-                                }else{
-                                    //res.json(1);
-                                }
-                            })    
-                        }
-                    }
-                }
-            })
-        }
-    })
-});
+//                             connection.query(upSql, [result[cnt].E_id], function(twoError, twoResult){
+//                                 if(twoError){
+//                                     console.error(twoError);
+//                                     throw twoError;
+//                                 }else{
+//                                     //res.json(1);
+//                                 }
+//                             })    
+//                         }
+//                     }
+//                 }
+//             })
+//         }
+//     })
+// });
 
 /////////////////////////////////////////////
 app.get('/nowRate', function(req, res){

@@ -41,6 +41,7 @@
                 
     <div class="content-boxed">
         <div class="content">
+            <form action="/exchange/exchange", method="POST" name="exForm">
             <!-- <table>
                 <tr>
                     <td>
@@ -98,13 +99,14 @@
                     </td>
                 </tr>
             </table> -->
+            
             <div class="container bottom-0">
                 <div class="one-half">
                     <div class="store-product-select-box select-box select-box-2 bottom-50 top-30">
                         <div class="input-style input-style-2 input-required top-40">
                             <span>외화</span>
                             <em><i class="fa fa-angle-down"></i></em>
-                            <select id="currency">
+                            <select id="currency" name="currency">
                                 <option value="option-0" disabled selected>외화 선택</option>
                                 <option value="usd">미국 USD</option>
                                 <option value="eur">유럽연합 EUR</option>
@@ -132,7 +134,7 @@
                     <div class="input-style has-icon input-style-1 input-required bottom-30">
                         <i class="input-icon fa fa-coins"></i>
                         <span>KRW</span>
-                        <input type="name" placeholder="총 환전할 금액(원)" id="total">
+                        <input type="text" placeholder="총 환전할 금액(원)" name="total" id="total">
                     </div> 
                 </div>    
             </div>
@@ -145,19 +147,20 @@
                         <!-- <i class="input-icon fa fa-globe"></i> -->
                         <img class="caption-image owl-lazy" data-src="images/pictures/korea_flag.png"/>
                         <span>KRW</span>
-                        <input type="text" id="code"  readonly>
+                        <input type="text" id="code" name="code" readonly>
+                        <input type="hidden" id="currencyCode" name="currencyCode"/>
                     </div> 
                 </div>
                 <div class="one-half last-column">
                     <div class="input-style has-icon input-style-1 input-required bottom-30">
                         <i class="input-icon fa fa-coins"></i>
                         <span>City</span>
-                        <input type="text" id="money" placeholder="money" readonly style="color: #4a89dc"> 
+                        <input type="text" id="money" placeholder="money" name="money" readonly style="color: #4a89dc"> 
                     </div> 
                 </div>
                 <div>
                     <label style="color: #4a89dc"><h4>환전 예약 날짜 기한</h4></label><br>
-                    <input type="date" id="endDate"/><br><br><br>
+                    <input type="date" id="endDate" name="endDate"/><br><br><br>
                 </div>
                 <div>
                     <label style="color: #4a89dc"><h4>목표 환율 지정</h4></label>
@@ -167,14 +170,14 @@
                         <!-- <i class="input-icon fa fa-globe"></i> -->
                         <img class="caption-image owl-lazy" data-src="images/pictures/korea_flag.png"/>
                         <span></span>
-                        <input type="name" id="targetRate" placeholder="">
+                        <input type="text" id="targetRate" name ="targetRate" placeholder="">
                     </div> 
                 </div>
                 <div class="one-half last-column">
                     <div class="input-style has-icon input-style-1 input-required bottom-30">
                         <i class="input-icon fa fa-coins"></i>
                         <span>KRW</span>
-                        <input type="name" placeholder="목표 환율로 지정했을 때 금액(원)" id="targetTotal">
+                        <input type="text" placeholder="목표 환율로 지정했을 때 금액(원)" name="targetTotal" id="targetTotal">
                     </div> 
                 </div>
 
@@ -182,7 +185,7 @@
                 <!-- <a href="javascript:applyFunction(this);" class="button bg-highlight button-full button-m shadow-large button-round-small bottom-25 top-10" style="text-decoration:none">환전 신청하기</a> -->
                 <input type="button" onclick="applyFunction();" class="button button-s button-round-large button-center-medium shadow-huge bottom-30" style="background: #428bca; text-decoration:none; border-radius: 25px;" value="환전하기"/>
             </div>
-            
+            </form>
         </div>
     </div>   
 
@@ -383,13 +386,21 @@ $(function(){
 });     // document.get.ready
 
 function applyFunction(){
+   
     var code = $('#currency option:selected').val();
+    $('#currencyCode').val(code);
     var total = parseInt(($('#total').val()).replace(/,/g,""));
+    $('#total').val(total);
     var endDate = $('#endDate').val();
+    $('#endDate').val(endDate);
     var targetRate = $('#targetRate').val();
-
+    $('#targetRate').val(targetRate);
+    var form = document.exForm;
+    form.submit();
     console.log(code + ", " + total + ", " + endDate + ", " + targetRate);
+    
 
+    /*
     $.ajax({
         url : 'http://localhost:3000/exchange/exchange',
         type : 'POST',
@@ -405,6 +416,7 @@ function applyFunction(){
             location.href = "http://localhost:3000/user/mypage"
         }
     });
+    */
 }   // applyFunction();
 </script>
 

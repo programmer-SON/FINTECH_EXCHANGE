@@ -94,18 +94,13 @@
                             </td>
                             <td>
                                 <% if(datas[i].code === 'usd') {%>
-                                    <p><h3> $ <%= Math.round(datas[i].E_money / 1,172) %></h3></p>
-                                <%}%>
-                            </td>
-                            <td>
-                                <% if(datas[i].code === 'usd') {%>
                                     <p><h3> $ <%= Math.round(datas[i].E_money / 1172) %></h3></p>
                                 <%}%>
                                 <% if(datas[i].code === 'eur') {%>
-                                    <p><h3> $ <%= Math.round(datas[i].E_money / 1320) %></h3></p>
+                                    <p><h3> 유로 <%= Math.round(datas[i].E_money / 1320) %></h3></p>
                                 <%}%>
                                 <% if(datas[i].code === 'jpy') {%>
-                                    <p><h3> $ <%= Math.round(datas[i].E_money / 1090) %></h3></p>
+                                    <p><h3> 엔화 <%= Math.round(datas[i].E_money / 1090) %></h3></p>
                                 <%}%>
                             </td>
                             <td>

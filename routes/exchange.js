@@ -13,39 +13,53 @@ var connection = mysql.createConnection({
 
   connection.connect();
 
-  router.use(express.static('public')); 
+  router.use(express.static('public'));
 
 router.get('/viewExchange',function(req,res){
+    if(req.session.user === undefined || req.session.user.logined === false){
+        res.writeHead(200, { "Content-Type": "text/html;characterset=utf8" });
+        res.write('<script>');
+        res.write('alert("please Logined");');
+        res.write(' location.href = "http://localhost:3000/user/viewLogin";');
+        res.write('</script>');
+        res.end();
+        return;
+    }
     res.render('exchange')
 });
 
 router.post('/exchange', function(req, res){
-    //var email = req.session.user.email;
-    //var myid = req.session.user.id;
-    var eid = 0;
+    if(req.session.user === undefined || req.session.user.logined === false){
+        res.writeHead(200, { "Content-Type": "text/html;characterset=utf8" });
+        res.write('<script>');
+        res.write('alert("please Logined");');
+        res.write(' location.href = "http://localhost:3000/user/viewLogin";');
+        res.write('</script>');
+        res.end();
+        return;
+    }
+
     var myid = req.session.user.id;
-    var code = req.body.code;
+    var code = req.body.currencyCode;
     var total = req.body.total;
     var endDate = req.body.endDate;
     var targetRate = req.body.targetRate;
-//    var sql = "INSERT INTO e_rate (id, code, e_rate, e_money, e_date, check) VALUES (?,?,?,?,?,?)"
-    var sql = "INSERT INTO fintech.e_rate (E_id, id, code, E_rate, E_money, E_date, E_check) " + 
-               " VALUES ( ?,?,?,?,?,?,?) ";
 
-    var maxsql = "SELECT max(E_id) AS eid FROM fintech.e_rate ";
-    //connection.query(sql, [112233, code, targetRate, total, endDate, 0], function(error, result){
-
-
-        connection.query(sql, [cnt++,myid, code, targetRate, total, endDate, 0], function(error, result){
-        if(error)
-        {
+    var sql = "  INSERT INTO fintech.e_rate (id, code, E_rate, E_money, E_date, E_check) " + 
+              "  VALUES ( ?,?,?,?,?,?) ";
+   
+    connection.query(sql, [myid, code, targetRate, total, endDate, 0], function(error, result){
+        if(error){
             console.error(error);
             throw error;
-        }
-        else
-        {
-            console.log("data input is done")
-            res.json(1);
+        }else{
+            
+            res.writeHead(200, { "Content-Type": "text/html;characterset=utf8" });
+            res.write('<script>');
+            res.write('alert("complete");');
+            res.write(' location.href = "http://localhost:3000/exchange/viewExchange";');
+            res.write('</script>');
+            res.end();  
         }
     })
 });
